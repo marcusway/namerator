@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load staticfiles %}
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Namerator</title>
+
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<body>
+<div class="container">
+
+    <div class="page-header">
+         <h1>Make Crazy Names!<small> It's stupid!</small></h1>
+    </div>
+
+    <div class="jumbotron">
+        <p>Type the beginning of a name and get outrageous results!</p>
+
+        <form action="/make-names/" method="get">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-success" value="Namify">
+        </form>
+    </div>
+</div> <!-- /container -->
+
+</body>
+</html>

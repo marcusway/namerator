@@ -37,9 +37,13 @@
 {% if names %}
     <ul class="list-group">
         {% for name in names %}
-        <a class="list-group-item list-group-item-info" href="#">{{ name.name }}
-            <span class="badge">{{ name.p }}</span>
-        </a>
+        <li class="list-group-item list-group-item-info" href="#"
+                style="font-size:large">{{ name.name }}
+            <span class="badge">{{ name.p | floatformat:7}}</span>
+            {% if name.real %}
+                    <a class="badge" href="http://www.wolframalpha.com/input/?i={{name.name}}">real name!</a>
+            {% endif %}
+        </li>
         {% endfor %}
     </ul>
 {% else %}

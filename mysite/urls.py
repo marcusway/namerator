@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 from mysite.views import *
 
 # Uncomment the next two lines to enable the admin:
@@ -15,10 +15,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-
-    url(r'^hello/$', hello),
-    url(r'^time/$', current_datetime),
-    url(r'^fight/(\w+)/(\w+)/(\d+)/$', fight),
     url(r'^namerator/$', input_form),
     url(r'^make-names/.*', make_random_name)
 )

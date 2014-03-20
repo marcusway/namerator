@@ -29,9 +29,9 @@
     <div class="jumbotron">
         <p>Type the beginning of a name and get outrageous results!</p>
 
-        <form action="/make-names/" method="get">{% csrf_token %}
+        <form action="/make-names/" method="post">{% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" class="btn btn-success" value="Namify">
+            <input type="submit" class="btn btn-large btn-primary" value="Namify">
         </form>
     </div>
 </div> <!-- /container -->

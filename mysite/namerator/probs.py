@@ -4,7 +4,9 @@ import itertools
 import re
 from collections import defaultdict
 import numpy as np
-import cPickle
+import scipy.stats as stat
+import cPickle as pickle
+
 class BabyNames:
 
     def __init__(self, gender):
@@ -13,8 +15,9 @@ class BabyNames:
         self.names_dict = names_dict[gender]
         self.num_names = len(self.names_dict)
         self.gender = gender
+        self.length_dist = stat.norm(6.45182, 1.48867)
         with open('mysite/namerator/t_dict2%s.pck' % gender, 'rb') as f:
-            self.tdict = cPickle.load(f)
+            self.tdict = pickle.load(f)
 
     def mega_stringify(self):
         mega_string = "".join([("<" + name_str + ">") * count for name_str, count in self.names_dict.iteritems()])
@@ -73,6 +76,7 @@ class BabyNames:
     def generate_name(self, transition_dict, start="<", n_gram=2):
         current_index = len(start)
         name = start.lower()
+        real_name = False
         prob = 1
         # choices = string.ascii_lowercase + "<>"
         while True:
@@ -91,8 +95,12 @@ class BabyNames:
             name += next_letter[0]
             prob *= probs[options.index(next_letter)]
             if next_letter == '>':
-                prob *= .01**(np.abs(9 - len(name)))
-                return name, prob
+                cdf = self.length_dist.cdf(len(name) - 2)
+                prob *= min(cdf, 1 - cdf)
+                # prob *= .01**(np.abs(9 - len(name)))
+                if name[1:-1].title() in self.names_dict:
+                    real_name = True
+                return name, prob, real_name
             current_index += 1
 
     def regularize(self, transition_dict, alpha=1):

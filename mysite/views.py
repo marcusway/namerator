@@ -19,7 +19,7 @@ def letter_validator(input_str):
 
 class name_form(forms.Form):
     start_of_name = forms.CharField(max_length=100, validators=[letter_validator], required=False)
-    wackiness = forms.ChoiceField(choices=((1, 'Wacky'), (2, 'Strange'), (3, 'Interesting')))
+    wackiness = forms.ChoiceField(choices=((1, 'Wacky'), (2, 'Strange')))
     gender = forms.ChoiceField(choices=(('M', 'Male'), ('F', 'Female')))
 
 def input_form(request):

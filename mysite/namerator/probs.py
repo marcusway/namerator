@@ -4,7 +4,7 @@ import itertools
 import re
 from collections import defaultdict
 import numpy as np
-import scipy.stats as stat
+# import scipy.stats as stat
 import cPickle as pickle
 
 class BabyNames:
@@ -15,7 +15,9 @@ class BabyNames:
         self.names_dict = names_dict[gender]
         self.num_names = len(self.names_dict)
         self.gender = gender
-        self.length_dist = stat.norm(6.45182, 1.48867)
+        self.length_dist = np.round(np.random.normal(6.45182, 1.48867, 10000))
+        self.length_probs = np.histogram(self.length_dist, bins=range(30), normed=True)[0]
+        self.length_std = 1.48867
         with open('mysite/namerator/t_dict2%s.pck' % gender, 'rb') as f:
             self.tdict = pickle.load(f)
 
@@ -95,8 +97,7 @@ class BabyNames:
             name += next_letter[0]
             prob *= probs[options.index(next_letter)]
             if next_letter == '>':
-                cdf = self.length_dist.cdf(len(name) - 2)
-                prob *= min(cdf, 1 - cdf)
+                prob *= self.length_probs[len(name) - 2]
                 # prob *= .01**(np.abs(9 - len(name)))
                 if name[1:-1].title() in self.names_dict:
                     real_name = True

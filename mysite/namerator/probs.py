@@ -95,7 +95,7 @@ class BabyNames:
             name += next_letter[0]
             prob *= probs[options.index(next_letter)]
             if next_letter == '>':
-                print self.length_probs
+                #print self.length_probs
                 cdf = self.length_cdf[len(name) - 2]
                 prob *= min(cdf, 1-cdf)
                 # prob *= .01**(np.abs(9 - len(name)))

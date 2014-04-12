@@ -42,10 +42,7 @@ class BabyNames:
             args = [string.ascii_lowercase + "<>"] * i
             all_combos = itertools.product(*args)
             for combo in all_combos:
-                print combo
                 total_counter += 1
-                if total_counter % 10 == 0:
-                    print "String number:", total_counter
                 # for each combo, we're trying to find the probability of seeing
                 # the last letter given the previous n - 1
                 leader = "".join(combo)
@@ -137,8 +134,6 @@ if __name__ == "__main__":
         name = x.generate_name(tdict, start="<"+start).strip("<>").title()
         
         all_names.add(name)
-    for name in all_names:
-        print name
 
 
 

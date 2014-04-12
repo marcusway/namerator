@@ -31,7 +31,6 @@ def make_random_name(request):
     if f.is_valid():
         if 'start_of_name' in f.cleaned_data:
             start = f.cleaned_data['start_of_name']
-            print "START OF NAME:", f.cleaned_data['start_of_name']
         else:
             start = random.choice(string.ascii_lowercase)
         number = 100 #f['']
@@ -39,11 +38,8 @@ def make_random_name(request):
         if 'gender' in f.cleaned_data:
             x = cache.get(f.cleaned_data['gender'])
             if not x:
-                print "Not using cache :("
                 x = BabyNames(f.cleaned_data['gender'])
                 cache.set(f.cleaned_data['gender'], x, 7200)
-            else:
-                print "Using Cache!"
         else:
             x = cache.get('F')
             if not x:
